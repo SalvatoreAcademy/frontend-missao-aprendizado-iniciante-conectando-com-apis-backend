@@ -3,17 +3,15 @@ import './App.css'
 import Card from './components/Card/Card'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Api } from './api/api'
 
 function App() {
   const [devmons, setDevmons] = useState([])
 
   async function fetchData() {
-    const apiUrl = 'https://backend-iniciante-integrar-com-frontend.onrender.com/personagemm'
+    const apiUrl = Api.personagem.readAll()
 
-    const response = await fetch(apiUrl).catch(function (error) {
-      console.error('Erro ao chamar endpoint /personagem', error)
-      toast.error('Erro ao carregar lista de DevMon')
-    })
+    const response = await Api.buildApiGetRequest(apiUrl)
 
     if (response.ok) {
       const data = await response.json()
